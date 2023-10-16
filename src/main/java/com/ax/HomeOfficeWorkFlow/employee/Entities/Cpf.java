@@ -1,4 +1,4 @@
-package com.ax.HomeOfficeWorkFlow.employee.Entities;
+package com.ax.HomeOfficeWorkFlow.employee.entities;
 
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -10,15 +10,13 @@ import lombok.Setter;
 public class Cpf {
   private String register;
 
-  public Cpf(String register){
+  public Cpf(String register) {
     String cpfRegex = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$";
 
-    if(register.matches(cpfRegex)){
+    if (register.matches(cpfRegex)) {
       this.register = register;
     }
-    
+
   }
 
 }
-
-

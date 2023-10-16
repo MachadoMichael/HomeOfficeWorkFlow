@@ -1,16 +1,20 @@
-package com.ax.HomeOfficeWorkFlow.employee.Entities;
+package com.ax.HomeOfficeWorkFlow.employee.entities;
 
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 public class Salary {
   private Double totalCompensation;
   private Double grossValue;
   private Double bonus;
+
+  public Salary(Double grossValue, Double bonus) {
+    this.grossValue = grossValue;
+    this.bonus = bonus;
+    this.totalCompensation = grossValue + (grossValue * bonus);
+  }
 }
