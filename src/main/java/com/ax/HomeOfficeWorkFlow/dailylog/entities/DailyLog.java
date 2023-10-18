@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.ax.HomeOfficeWorkFlow.company.entities.Company;
-import com.ax.HomeOfficeWorkFlow.employee.Entities.Cpf;
+import com.ax.HomeOfficeWorkFlow.employee.entities.Cpf;
 
 import jakarta.persistence.Entity;
 import lombok.Getter;
