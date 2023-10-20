@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ax.HomeOfficeWorkFlow.employee.Entities.Employee;
-
+import com.ax.HomeOfficeWorkFlow.employee.entities.Employee;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;

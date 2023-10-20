@@ -27,7 +27,6 @@ public class CompanyController {
     try {
       Company selectedCompany = companyService.findByCnpj(cnpj);
       return ResponseEntity.status(HttpStatus.FOUND).body(selectedCompany);
-
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cnpj.toString() + " not found");
     }
@@ -36,7 +35,6 @@ public class CompanyController {
   @GetMapping("/byFantasyName/{fantasyName}")
   public ResponseEntity<Object> getByFantasyName(@PathVariable(value = "fantasyName") String fantasyName) {
     try {
-
       Company selectedCompany = companyService.findByFantasyName(fantasyName);
       return ResponseEntity.status(HttpStatus.FOUND).body(selectedCompany);
     } catch (Exception e) {
@@ -67,10 +65,8 @@ public class CompanyController {
       Company company = companyService.findByCnpj(cnpj);
       companyService.delete(company);
       return ResponseEntity.status(HttpStatus.OK).body(cnpj.toString() + " delete with success");
-
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.FOUND).body(cnpj.toString() + " not found.");
     }
-
   }
 }

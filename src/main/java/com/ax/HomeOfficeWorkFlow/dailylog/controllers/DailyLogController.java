@@ -1,7 +1,5 @@
 package com.ax.HomeOfficeWorkFlow.dailylog.controllers;
 
-import java.rmi.server.ObjID;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -68,9 +66,11 @@ public class DailyLogController {
   public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
     try {
       Optional<DailyLog> selectedDailyLog = dailyLogService.findById(id);
-      DailyLog dailyLog = dailyLogService.findByCpf(selectedDailyLog.getCpf()).stream()
-          .filter(log -> log.getId.equals(id));
-      dailyLogService.delete(selectedDailyLog);
+      if(selectedDailyLog.isPresent()){
+        DailyLog dailyLog = (DailyLog) dailyLogService.findByCpf(selectedDailyLog.get().getCpf()).stream()
+                .filter(log -> log.getId().equals(id));
+        dailyLogService.delete(dailyLog);
+      }
       return ResponseEntity.status(HttpStatus.OK).body("Log deleted with success.");
 
     } catch (Exception e) {

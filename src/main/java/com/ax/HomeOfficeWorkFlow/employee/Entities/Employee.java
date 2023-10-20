@@ -1,43 +1,93 @@
 package com.ax.HomeOfficeWorkFlow.employee.entities;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import com.ax.HomeOfficeWorkFlow.company.entities.Company;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.ax.HomeOfficeWorkFlow.company.entities.Email;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
+@Table(name = "COMPANIES")
 @Getter
 @Setter
-public class Employee extends Person {
-   @Id
-   @GeneratedValue()
-   private UUID id;
+public class Employee extends Person implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-   private LocalDateTime hiredAt;
-   private Double lunchTime;
-   private Salary salary;
-   private Double dayWorkTime;
-   private Company company;
+    private LocalDateTime hiredAt;
+    private Double lunchTime;
+    private Salary salary;
+    private Double dayWorkTime;
+    private Company company;
+    private LoginRole loginRole;
+    private Email email;
 
-   public Employee(String firstName,
-         String lastName,
-         Cpf cpf,
-         LocalDateTime bornAt,
-         Company company,
-         Salary salary,
-         Double lunchTime,
-         Double dayWorkTime) {
-      super(firstName, lastName, cpf, bornAt);
-      this.id = UUID.randomUUID();
-      this.salary = salary;
-      this.company = company;
-      this.lunchTime = lunchTime;
-      this.dayWorkTime = dayWorkTime;
-   }
+    public Employee(String firstName,
+                    String lastName,
+                    Cpf cpf,
+                    LocalDateTime bornAt,
+                    Company company,
+                    Salary salary,
+                    Double lunchTime,
+                    Double dayWorkTime,
+                    Email email,
+                    LoginRole loginRole) {
+        super(firstName, lastName, cpf, bornAt);
+        this.id = UUID.randomUUID();
+        this.salary = salary;
+        this.company = company;
+        this.lunchTime = lunchTime;
+        this.dayWorkTime = dayWorkTime;
+        this.email = email;
+        this.loginRole = loginRole;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        if (this.loginRole == LoginRole.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email.getAddress();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
