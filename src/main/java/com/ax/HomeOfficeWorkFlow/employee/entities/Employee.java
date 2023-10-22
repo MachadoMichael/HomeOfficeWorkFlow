@@ -32,6 +32,7 @@ public class Employee extends Person implements UserDetails {
     private Company company;
     private LoginRole loginRole;
     private Email email;
+    private String login;
 
     public Employee(String firstName,
                     String lastName,
@@ -42,7 +43,9 @@ public class Employee extends Person implements UserDetails {
                     Double lunchTime,
                     Double dayWorkTime,
                     Email email,
-                    LoginRole loginRole) {
+                    LoginRole loginRole,
+                    String login
+    ) {
         super(firstName, lastName, cpf, bornAt);
         this.id = UUID.randomUUID();
         this.salary = salary;
@@ -51,6 +54,7 @@ public class Employee extends Person implements UserDetails {
         this.dayWorkTime = dayWorkTime;
         this.email = email;
         this.loginRole = loginRole;
+        this.login = login;
     }
 
     @Override

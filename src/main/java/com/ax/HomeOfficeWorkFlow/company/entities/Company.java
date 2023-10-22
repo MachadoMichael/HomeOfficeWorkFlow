@@ -5,11 +5,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.ax.HomeOfficeWorkFlow.employee.entities.Employee;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +22,9 @@ public class Company implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+
   private Cnpj cnpj;
   private Email email;
   private String name;
@@ -30,9 +32,10 @@ public class Company implements Serializable {
   private LocalDateTime openAt;
   private LocalDateTime registerAt;
   private Phone phone;
-  private List<Employee> employees;
+  private List<UUID> employees;
 
   public Company(Cnpj cnpj, Email email, String name, String fantasyName, LocalDateTime openAt, Phone phone) {
+    this.id = UUID.randomUUID();
     this.cnpj = cnpj;
     this.email = email;
     this.name = name;

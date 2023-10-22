@@ -18,6 +18,7 @@ public record NewEmployee(
     Double lunchTime,
     Double dayWorkTime,
     Email email,
-    LoginRole loginRole
+    LoginRole loginRole,
+    String login
 ) {
 }

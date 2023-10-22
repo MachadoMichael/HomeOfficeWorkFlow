@@ -1,11 +1,26 @@
 package com.ax.HomeOfficeWorkFlow.company.entities;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.UUID;
+
+@Entity
+@Table(name = "PHONES")
 @Getter
 @Setter
-public class Phone {
+public class Phone implements Serializable {
+  @Serial
+  private static final long serialVersionUID = 1L;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+
+  @Column(name = "phoneNumber", columnDefinition = "VARCHAR(11)")
   private String number;
 
   public Phone(String number) {

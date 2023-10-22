@@ -6,14 +6,18 @@ import java.util.UUID;
 import com.ax.HomeOfficeWorkFlow.company.entities.Company;
 import com.ax.HomeOfficeWorkFlow.employee.entities.Cpf;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "LOGS")
 @Getter
 @Setter
 public class DailyLog{
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
   private Cpf cpf;
   private Company company;

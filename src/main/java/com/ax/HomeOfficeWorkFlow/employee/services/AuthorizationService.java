@@ -7,13 +7,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class AuthozirationService implements UserDetailsService {
+public class AuthorizationService implements UserDetailsService {
 
     @Autowired
     EmployeeRepository repository;
-    @Override
-    public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
-        return repository.findByLogin(emailAddress);
+
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        return repository.findByLogin(login);
     }
+
 }

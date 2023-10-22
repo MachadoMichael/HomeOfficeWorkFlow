@@ -18,10 +18,6 @@ public class EmployeeServiceImp implements EmployeeService {
     return employeeRepository.findAll();
   }
 
-  public Employee findByCpf(Cpf cpf) {
-    return employeeRepository.findByCpf(cpf);
-  }
-
   public Employee save(Employee employee) {
     return employeeRepository.save(employee);
   }

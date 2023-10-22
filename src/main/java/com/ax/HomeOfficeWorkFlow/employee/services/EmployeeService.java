@@ -10,8 +10,6 @@ import com.ax.HomeOfficeWorkFlow.employee.entities.Employee;
 @Repository
 public interface EmployeeService {
 
-  public Employee findByCpf(Cpf cpf);
-
   public List<Employee> findAll();
 
   public Employee save(Employee employee);
