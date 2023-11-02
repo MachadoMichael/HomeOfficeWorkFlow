@@ -28,6 +28,7 @@ public class Phone implements Serializable {
 
     if (number.matches(phoneRegex)) {
       this.number = number;
+      this.id = UUID.randomUUID();
     }
   }
 }

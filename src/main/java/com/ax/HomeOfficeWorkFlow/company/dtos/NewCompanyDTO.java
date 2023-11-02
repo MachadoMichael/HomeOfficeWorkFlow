@@ -9,10 +9,11 @@ import com.ax.HomeOfficeWorkFlow.company.entities.Phone;
 import java.time.LocalDateTime;
 
 public record NewCompanyDTO(
-        Cnpj cnpj,
-        Email email,
+        String cnpj,
+        String email,
         String name,
         String fantasyName,
-        LocalDateTime openAt,
-        Phone phone) {
+        String phone,
+        String openAt
+) {
 }

@@ -1,5 +1,6 @@
 package com.ax.HomeOfficeWorkFlow.employee.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "COMPANIES")
+@Table(name = "EMPLOYEES")
 @Getter
 @Setter
 public class Employee extends Person implements UserDetails {
@@ -25,7 +26,7 @@ public class Employee extends Person implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private LocalDateTime hiredAt;
+    private LocalDate hiredAt;
     private Double lunchTime;
     private Salary salary;
     private Double dayWorkTime;
@@ -35,17 +36,16 @@ public class Employee extends Person implements UserDetails {
     private String login;
 
     public Employee(String firstName,
-                    String lastName,
-                    Cpf cpf,
-                    LocalDateTime bornAt,
-                    Company company,
-                    Salary salary,
-                    Double lunchTime,
-                    Double dayWorkTime,
-                    Email email,
-                    LoginRole loginRole,
-                    String login
-    ) {
+            String lastName,
+            Cpf cpf,
+            LocalDate bornAt,
+            Company company,
+            Salary salary,
+            Double lunchTime,
+            Double dayWorkTime,
+            Email email,
+            LoginRole loginRole,
+            String login) {
         super(firstName, lastName, cpf, bornAt);
         this.id = UUID.randomUUID();
         this.salary = salary;
@@ -55,6 +55,7 @@ public class Employee extends Person implements UserDetails {
         this.email = email;
         this.loginRole = loginRole;
         this.login = login;
+        this.hiredAt = LocalDate.now();
     }
 
     @Override
@@ -62,7 +63,8 @@ public class Employee extends Person implements UserDetails {
 
         if (this.loginRole == LoginRole.ADMIN)
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

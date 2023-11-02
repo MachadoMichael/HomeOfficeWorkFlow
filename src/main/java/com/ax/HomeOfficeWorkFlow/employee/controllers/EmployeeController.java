@@ -1,21 +1,22 @@
 package com.ax.HomeOfficeWorkFlow.employee.controllers;
 
+import com.ax.HomeOfficeWorkFlow.company.entities.Company;
+import com.ax.HomeOfficeWorkFlow.company.entities.Email;
+import com.ax.HomeOfficeWorkFlow.company.services.CompanyService;
+import com.ax.HomeOfficeWorkFlow.company.services.CompanyServiceImp;
+import com.ax.HomeOfficeWorkFlow.employee.entities.Salary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ax.HomeOfficeWorkFlow.employee.dtos.NewEmployee;
 import com.ax.HomeOfficeWorkFlow.employee.entities.Cpf;
 import com.ax.HomeOfficeWorkFlow.employee.entities.Employee;
 import com.ax.HomeOfficeWorkFlow.employee.services.EmployeeService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,9 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    CompanyService companyService;
 
     @GetMapping
     public ResponseEntity<Object> getAll() {
@@ -46,18 +50,21 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping
+    @PostMapping("/add")
     public ResponseEntity<Object> save(@RequestBody NewEmployee newEmployee) {
         try {
+            Company company = companyService.findByFantasyName(newEmployee.companyFantasyName());
+            Salary salary = new Salary(newEmployee.grossSalary(), newEmployee.bonus());
+
             Employee employee = new Employee(newEmployee.firstName(),
                     newEmployee.lastName(),
-                    newEmployee.cpf(),
-                    newEmployee.bornAt(),
-                    newEmployee.company(),
-                    newEmployee.salary(),
+                    new Cpf(newEmployee.cpf()),
+                    LocalDate.now(),
+                    company,
+                    salary,
                     newEmployee.lunchTime(),
                     newEmployee.dayWorkTime(),
-                    newEmployee.email(),
+                    new Email(newEmployee.email()),
                     newEmployee.loginRole(),
                     newEmployee.login());
 

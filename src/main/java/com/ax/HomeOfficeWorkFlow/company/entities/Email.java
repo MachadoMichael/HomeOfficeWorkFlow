@@ -28,6 +28,7 @@ public class Email implements Serializable {
 
     if (address.matches(emailRegex)) {
       this.address = address;
+      this.id = UUID.randomUUID();
     }
   }
 }

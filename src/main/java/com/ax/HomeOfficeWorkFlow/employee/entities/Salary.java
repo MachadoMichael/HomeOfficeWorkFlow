@@ -27,6 +27,7 @@ public class Salary implements Serializable {
   private Double bonus;
 
   public Salary(Double grossValue, Double bonus) {
+    this.id = UUID.randomUUID();
     this.grossValue = grossValue;
     this.bonus = bonus;
     this.totalCompensation = grossValue + (grossValue * bonus);

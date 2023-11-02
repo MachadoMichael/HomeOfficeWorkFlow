@@ -29,6 +29,7 @@ public class Cnpj implements Serializable {
 
     if (register.matches(cnpjRegex)) {
       this.register = register;
+      this.id = UUID.randomUUID();
     }
   }
 }
